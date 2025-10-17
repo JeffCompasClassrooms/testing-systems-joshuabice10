@@ -1,0 +1,99 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.7, pytest-8.4.2, pluggy-1.6.0
+rootdir: /Users/joshsmacbookpro/Desktop/UtahTech/SE3150/testing-systems-joshuabice10
+plugins: describe-2.2.0, mock-3.15.1, spec-5.0.0
+collected 52 items
+
+test_mydb.py:
+
+Testing MyDB Class:
+
+  Init of MyDB :
+    ✓ It creates file if given file which does not exist
+    ✓ It assigns correct file to fname if file exists
+
+  LoadStrings Method:
+    ✓ It loads the correct information from the file when it is empty
+    ✓ It loads the correct information from the file with one object
+    ✓ It loads the correct information from the file with many objects
+
+  SaveString Method:
+    ✓ It saves an empty string to an empty array
+    ✓ It saves a string to an empty array
+    ✓ It saves an empty string to an array that has another item
+    ✓ It saves a string with characters to an array that has another item
+    ✓ It saves multiple strings with characters to an array that has another item
+
+  SaveStrings Method:
+    ✓ It saves an empty array correctly
+    ✓ It saves an array with one object correctly
+    ✓ It saves an array with many objects correctly
+    ✓ It creates a new file if given one that does not exist and saves data
+
+test_squirrel_server.py:
+
+Testing Squirrel Server DB:
+
+  Handle404:
+    ✓ It returns 404 for invalid path
+    ✓ It returns 404 for wrong method
+
+  HandleSquirrelsCreate Method:
+    ✓ It returns the correct status code when creating a squirrel
+    ✓ It returns the correct status code when creating multiple squirrels
+    ✓ It creates one squirrel correctly
+    ✓ It creates multiple squirrels correctly
+
+  HandleSquirrelsDelete Method:
+
+    Fails:
+      ✓ It returns 404 when trying to delete with empty db
+      ✓ It returns correct body when trying to delete with empty db
+      ✓ It returns 404 when trying to delete bad squirrel when squirrels exist
+      ✓ It returns correct body when trying to delete bad squirrel when squirrels exist
+      ✓ It returns 404 when trying to delete already deleted squirrel
+
+    Successes:
+      ✓ It returns status code correctly when deleting a squirrel
+      ✓ It deletes a squirrel correctly
+      ✓ It deletes the correct squirrel when there are many
+      ✓ It deletes multiple squirrels correctly
+      ✓ It does not do anything to a different squirrel when deleting
+
+  HandleSquirrelsIndex Method:
+    ✓ It returns the correct status code when db is empty
+    ✓ It returns the correct header when db is empty
+    ✓ It returns empty list when db is empty
+    ✓ It returns the correct status code when db has some squirrels
+    ✓ It returns the correct header when db has come squirrels
+    ✓ It returns all squirrels when db has some squirrels
+
+  HandleSquirrelsRetrieve Method:
+
+    Fails:
+      ✓ It returns 404 when retrieving a squirrel from an empty db
+      ✓ It returns 404 when retrieving a squirrel that does not exist
+
+    Successes:
+      ✓ It returns the correct status code when retrieving a squirrel
+      ✓ It returns the correct header when retrieving a squirrel
+      ✓ It returns the squirrel correctly when only one exists
+      ✓ It returns the squirrel correctly when many exist
+
+  HandleSquirrelsUpdate Method:
+
+    Fails:
+      ✓ It returns 404 when trying to update a nonexistent squirrel
+      ✓ It returns correct body when trying to update a nonexistent squirrel
+      ✓ It returns 404 when trying to update a nonexistent squirrel when multiple squirrels exist
+      ✓ It returns correct body when trying to update a nonexistent squirrel when multiple squirrels exist
+
+    Successes:
+      ✓ It sends the correct status code when updating a squirrel
+      ✓ It sends the correct status code when updating multiple squirrels
+      ✓ It sends the correct status code when updating the same squirrel multiple times
+      ✓ It updates a squirrel correctly
+      ✓ It updates multiple squirrels correctly
+      ✓ It updates a squirrel multiple times correctly
+
+============================== 52 passed in 6.25s ==============================
