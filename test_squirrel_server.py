@@ -44,7 +44,6 @@ def run_server_with_test_db():
         except subprocess.TimeoutExpired:
             process.kill()
 
-        # Restore DB
         if os.path.exists(REAL_DB):
             os.remove(REAL_DB)
         if backup_db and os.path.exists(backup_db):
