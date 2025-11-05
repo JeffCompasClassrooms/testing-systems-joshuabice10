@@ -13,24 +13,38 @@ EMPTY_DB = "empty_squirrel_db.db"
 BASE_HOST = "127.0.0.1"
 BASE_PORT = 8080
 
+def kill_existing_squirrel_servers():
+        subprocess.run(
+            ["pkill", "-f", SERVER_PY],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.5)
+
+
 @pytest.fixture(autouse=True)
 def run_server_with_test_db():
+    kill_existing_squirrel_servers()
+
     backup_db = None
     if os.path.exists(REAL_DB):
         backup_db = REAL_DB + ".backup"
         os.rename(REAL_DB, backup_db)
-
     shutil.copy(EMPTY_DB, REAL_DB)
 
     process = subprocess.Popen(["python3", SERVER_PY])
-    time.sleep(0.15)
+    time.sleep(0.5)
 
     try:
         yield
     finally:
         process.terminate()
-        process.wait(timeout=2)
+        try:
+            process.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            process.kill()
 
+        # Restore DB
         if os.path.exists(REAL_DB):
             os.remove(REAL_DB)
         if backup_db and os.path.exists(backup_db):
