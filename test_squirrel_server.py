@@ -274,8 +274,21 @@ def describe_Testing_Squirrel_Server_DB():
             assert data == {'id': 2, 'name': 'Hoppy', 'size': 'big'}
             
             connection.close()
+        
+        def it_returns_400_on_bad_request():
+            connection = http.client.HTTPConnection(BASE_HOST, BASE_PORT)
+
+            body = "name=HalfSquirrel"
+            headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+            connection.request("POST", "/squirrels", body=body, headers=headers)
+            response = connection.getresponse()
+
+            assert response.status == 400
+            connection.close()
 
     def describe_handleSquirrelsUpdate_Method():
+
         
         def describe_Successes():
             def it_sends_the_correct_status_code_when_updating_a_squirrel():
